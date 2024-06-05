@@ -1,0 +1,1 @@
+java -jar extendDemoApp/target/extendDemoApp-1.0-SNAPSHOT.jar

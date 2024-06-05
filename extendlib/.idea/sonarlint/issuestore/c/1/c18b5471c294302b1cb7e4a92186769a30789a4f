@@ -1,0 +1,19 @@
+
+[	java:S112K"FDefine and throw a dedicated exception instead of using a generic one.(ß‹‡š
+`	java:S112F"FDefine and throw a dedicated exception instead of using a generic one.(Ó‘şØÿÿÿÿÿ
+P
+java:S1118":Add a private constructor to hide the implicit public one.(ƒ³¯Š
+O
+java:S4719":Replace Charset.forName() call with StandardCharsets.UTF_8(ñò±]
+E
+java:S2093!"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ
+^	java:S8998"DDo something with the "boolean" value returned by "setLastModified".(ÚÁÚåøÿÿÿÿ
+i
+java:S4042J"NUse "java.nio.file.Files#delete" here for better messages on error conditions.(ºèêŒüÿÿÿÿ
+E	java:S106M"+Replace this use of System.out by a logger.(ÕØ³±ûÿÿÿÿ
+P	java:S899O";Do something with the "boolean" value returned by "delete".(íÔˆ¢
+d
+java:S4042O"NUse "java.nio.file.Files#delete" here for better messages on error conditions.(íÔˆ¢
+E	java:S106P"+Replace this use of System.out by a logger.(ÓšÑ§ûÿÿÿÿ
+=
+java:S1068"(Remove this unused "UTF8" private field.(ñò±]

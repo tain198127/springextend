@@ -1,0 +1,19 @@
+
+	java:S112K"FDefine and throw a dedicated exception instead of using a generic one.(ß‹‡šJ$bebd8463-06c1-4599-9995-a73446ba767a
+†	java:S112F"FDefine and throw a dedicated exception instead of using a generic one.(Ó‘şØÿÿÿÿÿJ$ddd32a78-daa4-4b0f-9579-2bdbd8af5641
+v
+java:S1118":Add a private constructor to hide the implicit public one.(ƒ³¯ŠJ$03e24721-7786-49d3-b8fe-7fbe61e3f908
+u
+java:S4719":Replace Charset.forName() call with StandardCharsets.UTF_8(ñò±]J$d1d4bae4-f0e6-48ed-9ed1-a03afdae3efb
+k
+java:S2093!"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿJ$3a8b7f87-2a98-460d-8945-1722b6e696c9
+„	java:S8998"DDo something with the "boolean" value returned by "setLastModified".(ÚÁÚåøÿÿÿÿJ$390365a8-0963-4401-b757-28b2bb37e44a
+
+java:S4042J"NUse "java.nio.file.Files#delete" here for better messages on error conditions.(ºèêŒüÿÿÿÿJ$1a5d194b-228d-4a8e-b373-262b7c60367d
+k	java:S106M"+Replace this use of System.out by a logger.(ÕØ³±ûÿÿÿÿJ$70adc08f-c6c6-4e25-adfe-fadd43b9ed2c
+v	java:S899O";Do something with the "boolean" value returned by "delete".(íÔˆ¢J$18f7600d-7bdc-404d-80c6-cb9205b5e7b6
+Š
+java:S4042O"NUse "java.nio.file.Files#delete" here for better messages on error conditions.(íÔˆ¢J$e79f8037-6133-43f6-bf88-7b7ef1db43db
+k	java:S106P"+Replace this use of System.out by a logger.(ÓšÑ§ûÿÿÿÿJ$a525d1d0-c8ed-4fdc-8e60-16c7ea8d85ef
+c
+java:S1068"(Remove this unused "UTF8" private field.(ñò±]J$59ffd191-b9c2-42e4-9cca-1185aa4d2bad

@@ -1,0 +1,1 @@
+java -jar -Dloader.path=./extendDemoLib/target extendDemoApp/target/extendDemoApp-1.0-SNAPSHOT.jar

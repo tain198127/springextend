@@ -1,0 +1,50 @@
+
+‡	java:S112ˆ"FDefine and throw a dedicated exception instead of using a generic one.(ÆÉËøÿÿÿÿJ$a43c53e9-a9b4-4030-b2ab-0e93eb6c6778
+‡	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(–øâŒûÿÿÿÿJ$19b1c1e6-e5b5-4e55-8eed-f31b32172e88
+‡	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(ôÚ™ÅøÿÿÿÿJ$8bc3e089-ead9-4665-a658-f26a36c94091
+‡	java:S112®"FDefine and throw a dedicated exception instead of using a generic one.(ÒÃÍúÿÿÿÿJ$334e81bc-843d-4679-97b0-2e28aacd41ba
+–
+java:S2293¯"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÈÕŞ÷J$e03be8b2-1921-4636-be7e-4528dc0ae168
+–
+java:S2293°"YReplace the type specification in this constructor call with the diamond operator ("<>").(±Øß»J$49ea1f2d-0cd7-44dc-bc36-c138f5b32b05
+e
+java:S1604"(Make this anonymous inner class a lambda(Õâ¾J$5b0dad5d-26d9-459e-8950-8c64894a1a57
+q
+java:S1604Ù"(Make this anonymous inner class a lambda(ô­ü©øÿÿÿÿ8ë³éı1J$45a4547e-bb0c-4fa4-a70d-b69b82c28f01
+¥
+java:S1488Õ"cImmediately return this expression instead of assigning it to the temporary variable "archiveFile".(ËÍ¼ÿÿÿÿÿJ$631079e2-f316-4367-a15e-b55c3c00ca94
+š	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(ƒ†ü´øÿÿÿÿJ$5d8f134d-b1ff-4758-a646-822b889dc166
+•	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(Ğ³¤¬J$c3b6cdfc-9457-483a-bd0a-eaa1413c8bef
+•	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(•ÌıÃJ$20f22f85-b3d8-45b8-82fe-c0b2833945d5
+•	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(¢¢ÎúJ$23d9272f-cc36-4424-85d1-badd15b4c057
+m
+java:S11819"%Catch Exception instead of Throwable.(‡˜ÚÚøÿÿÿÿ8úì³éı1J$77b2a14b-abb0-48e1-816e-0d21c165d814
+Ÿ
+java:S1157:"cReplace these toUpperCase()/toLowerCase() and equals() calls with a single equalsIgnoreCase() call.(“¨¯õJ$401a3588-d4a2-47ee-85a3-98a53073f24f
+‚
+java:S1126\"AReplace this if-then-else statement by a single return statement.(š«’ıÿÿÿÿJ$082c22e3-35bc-464a-bb23-95601acda553
+b
+java:S1168h"&Return an empty array instead of null.(¥¹ïJ$715e09ac-0b10-4c1b-95c0-b432c6d7619c
+
+java:S1155l">Use isEmpty() to check whether the collection is empty or not.(ÁÖñ‚üÿÿÿÿJ$9ebc917b-914b-4a0f-88ba-9a89977c52d8
+b
+java:S1168m"&Return an empty array instead of null.(¥¹ïJ$d08ab65a-4b80-4808-a251-8a2937c17dc8
+
+java:S4042£"NUse "java.nio.file.Files#delete" here for better messages on error conditions.(ºèêŒüÿÿÿÿJ$e8a697cc-49a5-408f-b435-855635551203
+s
+java:S1611Ô"1Remove the parentheses around the "url" parameter(ÁŸÍ¹ûÿÿÿÿJ$feabeb8e-4ddf-4f80-9334-82993561c078
+r
+java:S1611Ü"5Remove the parentheses around the "archive" parameter(’ª’J$e90710fb-1c91-4460-a8d5-cd8b6ce3c067
+i
+java:S1602Ü",Remove useless curly braces around statement(’ª’J$1986cb59-5953-42bb-82f6-aa1d496b7c98
+e	java:S108æ")Either remove or fill this block of code.(ï­£ÄJ$9729d78b-08df-481c-8bde-bc51bce704ee
+l
+java:S2093×"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿJ$de4c37ad-f76d-4357-9bb2-74ca65f7b1fe
+s
+java:S2093î"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ8Ëí³éı1J$b99b051e-f324-4e6f-9b37-e76a59372c36
+l	java:S106‡"+Replace this use of System.out by a logger.(øºÑûúÿÿÿÿJ$c704b60e-50ff-496c-b35c-d4d573f59c46
+g	java:S106Š"+Replace this use of System.out by a logger.(ÌË§„J$3bf50ffd-320e-4e65-97b4-56479f354c96
+e
+java:S1068")Remove this unused "FALSE" private field.(çö°™J$08a96351-590c-4e83-a278-a867f642353a
+l
+java:S1144"*Remove this unused private "clear" method.(Ñİ­ûÿÿÿÿJ$d4f5be9e-f05a-4653-a306-59823e1d5d46
