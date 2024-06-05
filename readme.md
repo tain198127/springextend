@@ -40,7 +40,7 @@ SpringBoot启动时扫描的顺序如下
 
 
 
-![image-20240605134321378](/Users/baodan/Library/Application Support/typora-user-images/image-20240605134321378.png)
+![image-20240605134321378](./image-20240605134321378.png)
 
 ### 3.用法
 
@@ -245,7 +245,7 @@ SpringBoot启动时扫描的顺序如下
 
 假设此时已经把二次开发要用的bean写好了。
 
-![image-20240605165520109](/Users/baodan/Library/Application Support/typora-user-images/image-20240605165520109.png)
+![image-20240605165520109](./image-20240605165520109.png)
 
 其中的DefaultBeanConfiguration2就是一个普通的@Configuration
 
