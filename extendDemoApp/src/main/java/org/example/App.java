@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * Hello world!
  */
-@SpringBootApplication(scanBasePackages = "org.example")
+@SpringBootApplication(scanBasePackages = {"org.example","com.baomidou.mybatisplus.mapper"})
 public class App {
     public static void main(String[] args) {
         SpringApplication springApplication = new SpringApplication(App.class);
