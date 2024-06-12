@@ -3,11 +3,18 @@ package org.example;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * Hello world!
  */
-@SpringBootApplication(scanBasePackages = {"org.example","com.baomidou.mybatisplus.mapper"})
+
+//@EnableSwagger2
+@EnableSwagger2
+@EnableWebMvc
+
+@SpringBootApplication(scanBasePackages = {"org.example", "com.baomidou.mybatisplus.mapper"})
 public class App {
     public static void main(String[] args) {
         SpringApplication springApplication = new SpringApplication(App.class);
