@@ -1,10 +1,7 @@
-package org.example.domain.po;
+package org.example.mapper;
 
 import lombok.Data;
-import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
-
-import java.util.Date;
 
 @Data
 @Table("demo_data")

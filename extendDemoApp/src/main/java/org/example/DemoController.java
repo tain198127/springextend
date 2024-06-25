@@ -27,5 +27,9 @@ public class DemoController {
     public String insertParam(@RequestParam("greeding") String greeding){
         return name.insertName(greeding);
     }
+    @GetMapping("/batchinsert")
+    public String batchInsert(@RequestParam("template") String template){
+        return name.batchInsert(template);
+    }
 
 }

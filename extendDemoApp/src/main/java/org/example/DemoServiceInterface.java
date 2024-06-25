@@ -4,4 +4,6 @@ public interface DemoServiceInterface {
     String generateName(String firstName);
 
     String insertName(String firstName);
+
+    String batchInsert(String tempLate);
 }
