@@ -22,11 +22,14 @@ public class DemoService implements DemoServiceInterface {
     @Resource
     private DemoDataMapper demoDataMapper;
 
+
+
     @Override
     public String generateName(String firstName) {
         QueryWrapper<Param> wrapper = new QueryWrapper();
         wrapper.select("start_version", "end_version");
         wrapper.eq("biz_value", "20");
+
 
         List<Param> result = mapper.selectList(wrapper);
 
@@ -43,8 +46,8 @@ public class DemoService implements DemoServiceInterface {
         int count = 0;
         for (int i = 0; i < 10000; i++) {
             Param param = new Param();
-            param.setValue(tempLate + UUID.randomUUID().toString() + "_" + i);
-            param.setKey(tempLate + System.currentTimeMillis() + "_" + i);
+            param.setBizValue(tempLate + UUID.randomUUID().toString() + "_" + i);
+            param.setBizKey(tempLate + System.currentTimeMillis() + "_" + i);
             param.setEndVersion(1);
             param.setStartVersion(0);
             count += mapper.insert(param);
@@ -52,12 +55,12 @@ public class DemoService implements DemoServiceInterface {
         return String.valueOf(count);
     }
 
-    @Transactional(timeout = 1)
+    @Transactional
     @Override
     public String insertName(String firstName) {
         Param param = new Param();
-        param.setValue(firstName);
-        param.setKey(firstName);
+        param.setBizValue(firstName);
+        param.setBizKey(firstName);
         param.setEndVersion(1);
         param.setStartVersion(0);
         try {

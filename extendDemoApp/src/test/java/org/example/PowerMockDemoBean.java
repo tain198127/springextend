@@ -95,6 +95,7 @@ public class PowerMockDemoBean {
         System.out.println(expectd);
         PowerMockito.when(inter.sayHello()).thenReturn(expectd);
         String result = serviceInterface.generateName(input);
+        serviceInterface.batchInsert("debug");
         System.out.println(result);
 
     }

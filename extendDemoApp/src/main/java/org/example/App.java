@@ -1,5 +1,6 @@
 package org.example;
 
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,6 +17,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @EnableWebMvc
 @EnableAsync
+@EnableEncryptableProperties
 @EnableTransactionManagement
 @SpringBootApplication(scanBasePackages = {"org.example", "com.baomidou.mybatisplus.mapper"})
 public class App {

@@ -14,7 +14,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>1.8</java.version>
     <spring.loader.version>2.7.18</spring.loader.version>
-    <spring.version>2.7.18</spring.version>
+    <spring.version>2.3.12.RELEASE</spring.version>
   </properties>
 
   <dependencies>
