@@ -171,7 +171,7 @@ public class SqlParseInterceptor implements Interceptor {
             }
 
 
-            System.out.println(String.format("Original SQL: %s-->%s\n",methodName,sql));
+            System.out.println(String.format("StatementHandler-->Original SQL: %s-->%s\n",methodName,sql));
         }
 
 

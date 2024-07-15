@@ -1,15 +1,22 @@
 package org.example.interceptor;
 
+import cn.hutool.json.JSON;
+import cn.hutool.json.JSONUtil;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
 import org.apache.calcite.sql.*;
 import org.apache.calcite.sql.parser.SqlParser;
 import org.apache.calcite.sql.util.SqlShuttle;
+import org.apache.ibatis.binding.MapperMethod;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.logging.jdbc.BaseJdbcLogger;
 import org.apache.ibatis.logging.jdbc.PreparedStatementLogger;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
+import org.apache.ibatis.mapping.ParameterMapping;
+import org.apache.ibatis.mapping.SqlCommandType;
 import org.apache.ibatis.plugin.*;
 import org.apache.shardingsphere.sql.parser.api.CacheOption;
 import org.apache.shardingsphere.sql.parser.api.SQLParserEngine;
@@ -21,12 +28,21 @@ import org.apache.shardingsphere.sql.parser.sql.common.segment.generic.table.Sim
 import org.apache.shardingsphere.sql.parser.sql.common.statement.SQLStatement;
 import org.apache.shardingsphere.sql.parser.sql.dialect.statement.mysql.dml.MySQLInsertStatement;
 import org.apache.shardingsphere.sql.parser.sql.dialect.statement.mysql.dml.MySQLUpdateStatement;
+import org.reflections.Reflections;
+import org.reflections.scanners.SubTypesScanner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.task.support.ExecutorServiceAdapter;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.lang.reflect.Field;
 import java.lang.reflect.Proxy;
 import java.sql.Statement;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 
@@ -40,12 +56,20 @@ import java.util.stream.Collectors;
 })
 @Log4j2
 public class SqlParseInterceptorExecutor implements Interceptor {
+    CacheOption cacheOption = new CacheOption(128, 1024L);
+    SQLParserEngine parserEngine = new SQLParserEngine("MySQL", cacheOption);
+    SQLVisitorEngine visitorEngine = new SQLVisitorEngine("MySQL", "STATEMENT", false, new Properties());
+    @PostConstruct
+    public void init(){
+        ParseASTNode parseASTNode = parserEngine.parse("SELECT 1",true);
+        SQLStatement sqlStatement = visitorEngine.visit(parseASTNode);
+    }
 
+    ObjectMapper mapper = new ObjectMapper();
     private void visitTableAndColumnsBySS(String sql, Set<String> tables, Set<String> columns){
-        CacheOption cacheOption = new CacheOption(128, 1024L);
-        SQLParserEngine parserEngine = new SQLParserEngine("MySQL", cacheOption);
-        ParseASTNode parseASTNode = parserEngine.parse(sql, false);
-        SQLVisitorEngine visitorEngine = new SQLVisitorEngine("MySQL", "STATEMENT", false, new Properties());
+
+        ParseASTNode parseASTNode = parserEngine.parse(sql, true);
+
         SQLStatement sqlStatement = visitorEngine.visit(parseASTNode);
 
         if (sqlStatement instanceof MySQLInsertStatement) {
@@ -103,15 +127,15 @@ public class SqlParseInterceptorExecutor implements Interceptor {
             return columns;
         }
 
-        @Override
-        public SqlNode visit(SqlIdentifier id) {
-            if (id.isSimple()) {
-                columns.add(id.toString());
-            } else {
-                columns.add(id.toString());
-            }
-            return super.visit(id);
-        }
+//        @Override
+//        public SqlNode visit(SqlIdentifier id) {
+//            if (id.isSimple()) {
+//                columns.add(id.toString());
+//            } else {
+//                columns.add(id.toString());
+//            }
+//            return super.visit(id);
+//        }
 
         @Override
         public SqlNode visit(SqlCall call) {
@@ -131,69 +155,79 @@ public class SqlParseInterceptorExecutor implements Interceptor {
         }
     }
 
+    private String packageName="com.isoftstone";
+
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
         Object target = invocation.getTarget();
 
+        Future<Long> result = Executors.newCachedThreadPool().submit(()->{
+            if(!Proxy.isProxyClass(target.getClass())){
+                long start = System.currentTimeMillis();
+                Object[] args = invocation.getArgs();
+                MappedStatement ms = (MappedStatement)args[0];
+                SqlCommandType commandType = ms.getSqlCommandType();
+                if(commandType == SqlCommandType.INSERT || commandType == SqlCommandType.UPDATE){
+                    Object parameter = args[1];
+                    BoundSql boundSql;
+                    boundSql = ms.getBoundSql(parameter);
+                    String sql = boundSql.getSql();
+                    Set<String> table = new HashSet<>();
+                    Set<String> column = new HashSet<>();
+                    visitTableAndColumnsBySS(sql,table,column);
+                    System.out.println(String.format("Executor-->original sql: %s",sql));
+                    for(String t : table){
+                        System.out.println(String.format("table: %s",t));
+                    }
+                    if(commandType == SqlCommandType.INSERT) {
+                        Map<String, Object> map =
+                                mapper.convertValue(parameter, new TypeReference<Map<String, Object>>() {
+                                });
 
+                        for (String key : map.keySet()) {
+                            System.out.println(String.format("key: %s, value: %s", key, map.get(key)));
+                        }
+                    }
+                    else if(commandType == SqlCommandType.UPDATE){
+                        Map<String,Object> map = new HashMap<>();
+                        if(parameter instanceof MapperMethod.ParamMap){
+                            MapperMethod.ParamMap paramMap =((MapperMethod.ParamMap) parameter);
+                            Set<String> keyset = paramMap.keySet();
+
+                            if(null != keyset && !keyset.isEmpty()){
+                                for(String k:keyset){
+                                    Object obj = paramMap.get(k);
+                                    Map<String, Object> tmpMap =
+                                            mapper.convertValue(obj, new TypeReference<Map<String, Object>>() {
+                                            });
+                                    map.putAll(tmpMap);
+                                }
+                            }
+
+                        }
+                        for (String key : map.keySet()) {
+                            System.out.println(String.format("key: %s, value: %s", key, map.get(key)));
+                        }
+
+                    }
+
+                    long end = System.currentTimeMillis();
+                    System.out.println(String.format("execute type [%s],Executor-->cost time: %s",commandType,end-start));
+                    return (Long)(end-start);
+                }
+
+                return (Long)0L;
+            }
+            return (Long)0L;
+        });
         //必须加这个，因为如果是代理过来的，会被调用两次。
-        if(!Proxy.isProxyClass(target.getClass())){
-            Object[] args = invocation.getArgs();
-            MappedStatement ms = (MappedStatement)args[0];
-            Object parameter = args[1];
-            BoundSql boundSql;
-            boundSql = ms.getBoundSql(parameter);
-
-            StatementHandler statementHandler = (StatementHandler) invocation.getTarget();
-            if(Proxy.isProxyClass(invocation.getArgs()[0].getClass())){
-
-                PreparedStatementLogger preparedStatementLogger =((PreparedStatementLogger)Proxy.getInvocationHandler(invocation.getArgs()[0]));
-                BaseJdbcLogger baseJdbcLogger = (BaseJdbcLogger)preparedStatementLogger;
-
-                Field columnMap = preparedStatementLogger.getClass().getField("columnMap");
-                columnMap.setAccessible(true);
-                Map<Object,Object> param = (Map<Object, Object>) columnMap.get(preparedStatementLogger);
-                param.forEach((key,value)->{
-                    System.out.println(String.format("%s-->%s",key,value));
-                });
-
-            }
-
-
-            String sql = statementHandler.getBoundSql().getSql();
-            String methodName = invocation.getMethod().getName();
-
-            Set<String> tables = new HashSet<>();
-            Set<String> columns = new HashSet<>();
-
-            visitTableAndColumnsBySS(sql, tables,columns);
-
-            if(!tables.isEmpty()){
-                Iterator<String> t = tables.iterator();
-                System.out.println("tables:");
-                while (t.hasNext()){
-                    System.out.println(t.next());
-                }
-            }
-            if(!columns.isEmpty()){
-                System.out.println("columns:");
-                Iterator<String> c = columns.iterator();
-                while (c.hasNext()){
-                    System.out.println(c.next());
-                }
-            }
-
-
-            System.out.println(String.format("Original SQL: %s-->%s\n",methodName,sql));
-        }
-
-
+        result.get(100,TimeUnit.SECONDS);
         Object object = invocation.proceed();
         return object;
     }
     @Override
     public Object plugin(Object target) {
-        if (target instanceof StatementHandler) {
+        if (target instanceof Executor) {
             return Plugin.wrap(target, this);
         }
         return target;

@@ -54,13 +54,23 @@ public class MapperTest {
         QueryWrapper<Param> wrapper = new QueryWrapper();
         wrapper.eq("end_version",0);
         Page<Param> page = new Page<>();
-        page.setCurrent(0).setSize(1);
+        page.setCurrent(0).setSize(2);
         Page<Param> selectPages = mapper.selectPage(page,wrapper);
         List<Param> list = selectPages.getRecords();
         if(null != list && !list.isEmpty()){
-            Param param = list.get(0);
-            param.setBizValue(UUID.randomUUID().toString());
-            mapper.updateById(param);
+            for(Param param : list) {
+                param.setBizValue(UUID.randomUUID().toString());
+                mapper.updateById(param);
+            }
         }
+    }
+    @Test
+    @Transactional
+    @Rollback
+    public void insertAndUpdateTest(){
+        insertTest();
+        updateTest();
+        insertTest();
+        updateTest();
     }
 }

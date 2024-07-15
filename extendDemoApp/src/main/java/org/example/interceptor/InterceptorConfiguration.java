@@ -11,10 +11,14 @@ public class InterceptorConfiguration {
         return new SqlParseInterceptor();
     }
     @Bean
-    public ConfigurationCustomizer mybatisConfigurationCustomizer(SqlParseInterceptor sqlParseInterceptor) {
+    public SqlParseInterceptorExecutor SqlParseInterceptorExecutor(){
+        return new SqlParseInterceptorExecutor();
+    }
+    @Bean
+    public ConfigurationCustomizer mybatisConfigurationCustomizer(SqlParseInterceptor sqlParseInterceptor,SqlParseInterceptorExecutor sqlParseInterceptorExecutor) {
         return configuration -> {
-            configuration.addInterceptor(sqlParseInterceptor);
-            configuration.addInterceptor(new SqlParseInterceptorExecutor());
+//            configuration.addInterceptor(sqlParseInterceptor);
+            configuration.addInterceptor(sqlParseInterceptorExecutor);
         };
     }
 }
